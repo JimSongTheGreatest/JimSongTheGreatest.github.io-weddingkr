@@ -367,18 +367,22 @@
             <div class="col-md-6 col-md-offset-3">
                 <h3>참석여부 회답 하기</h3>
                 <p>가능한 빠른 시일내로 답장을 주시면 정말 감사하겠습니다</p>
-                <form id="rsvp-form" class="rsvp-form" action="" method="POST">
+                <form class ="rsvp-form" action="https://sheetdb.io/api/v1/79772o1mbj04x" method="POST" id="sheetdb-form">
+                <!-- 성함: <input name="data[email]">
+                전화번호: <input name="data[name]">
+                참석 가족 인원: <input name="data[extras]">
+                <button type="submit">Submit</button> -->
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <div class="form-input-group">
-                                <i class="fa fa-envelope"></i><input type="email" name="email" class=""
+                                <i class="fa fa-envelope"></i><input type="email" name="data[email]" class=""
                                                                      placeholder="이메일"
                                                                      required>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6">
                             <div class="form-input-group">
-                                <i class="fa fa-user"></i><input name="name" class=""
+                                <i class="fa fa-user"></i><input name="data[name]" class=""
                                                                  placeholder="성함"
                                                                  required>
                             </div>
@@ -387,25 +391,25 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <div class="form-input-group">
-                                <i class="fa fa-users"></i><input type="number" name="extras" class="" min="0"
+                                <i class="fa fa-users"></i><input type="number" name="data[extras]" class="" min="0"
                                                                   max="4"
                                                                   placeholder="참석 가족 인원"
                                                                   required>
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-6">
+                        <!-- <div class="col-md-6 col-sm-6">
                             <div class="form-input-group">
                                 <i class="fa fa-key"></i><input type="number" name="invite_code" id="invite_code"
                                                                 class="" min="0"
                                                                 placeholder="초청 암호"
                                                                 required>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row">
                         <div class="col-md-12" id="alert-wrapper"></div>
                     </div>
-                    <button class="btn-fill rsvp-btn">
+                    <button class="btn-fill rsvp-btn" type="submit">
                         네,
                         참석 하겠습니다!
                     </button>
@@ -425,6 +429,24 @@
         </div>
     </div>
 </footer>
+
+<script>
+  var form = document.getElementById('sheetdb-form');
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    fetch(form.action, {
+        method : "POST",
+        body: new FormData(document.getElementById("sheetdb-form")),
+    }).then(
+        response => response.json()
+    ).then((html) => {
+      // you can put any JS code here
+      alert('success')
+    });
+  });  
+ </script>
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
